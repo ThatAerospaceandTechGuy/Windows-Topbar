@@ -1,8 +1,8 @@
-# Windows Topbar
+# Windows TopBar
 
 A lightweight desktop utility that brings a macOS-style menu bar to Windows — a sleek top bar with live system stats, a Control Center, per-app menus, and more.
 
-![Windows Topbar settings](docs/preview.png)
+![Windows TopBar settings](docs/preview.png)
 
 ## Features
 
@@ -50,5 +50,3 @@ Settings are saved to `topbar-config.json` next to the executable.
 ## License
 
 This project is **source-available** under the [TopBar Source License](LICENSE) — you may view, compile, and modify the source for personal use, but **redistribution of the software or source code is not permitted**. See [LICENSE](LICENSE) for the full terms.
-
-
