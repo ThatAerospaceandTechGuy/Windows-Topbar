@@ -1,0 +1,46 @@
+<Window x:Class="TopBar.TrayPopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="System Tray"
+        Width="324" SizeToContent="Height"
+        MaxHeight="500"
+        WindowStartupLocation="Manual"
+        WindowStyle="None" AllowsTransparency="True"
+        Background="Transparent" ResizeMode="NoResize"
+        ShowInTaskbar="False" Topmost="True"
+        Deactivated="Window_Deactivated"
+        MouseEnter="Window_MouseEnter"
+        MouseLeave="Window_MouseLeave">
+
+    <Border Background="#01000000" CornerRadius="{StaticResource PopupRadius}" Padding="{StaticResource ContentPad}">
+        <StackPanel>
+            <TextBlock Text="System Tray" Style="{StaticResource PopupHeader}" Margin="0,0,0,10"/>
+
+            <Border Background="{DynamicResource PopupSeparator}" Height="1" Margin="0,0,0,10"/>
+
+            <!-- Refresh button -->
+            <Border Style="{StaticResource Pill}" HorizontalAlignment="Left"
+                    Margin="0,0,0,10"
+                    MouseLeftButtonUp="Refresh_Click">
+                <TextBlock Text="Refresh" Foreground="{DynamicResource PopupFgNormal}" FontSize="12"/>
+            </Border>
+
+            <!-- Tray icons grid -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="380">
+                <ItemsControl x:Name="IconsPanel">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <TextBlock x:Name="EmptyLabel" Text="No tray icons found"
+                       Foreground="{DynamicResource PopupFgDim}" FontSize="11"
+                       HorizontalAlignment="Left" Margin="0,10,0,0"
+                       TextWrapping="Wrap"
+                       Visibility="Collapsed"/>
+        </StackPanel>
+    </Border>
+</Window>

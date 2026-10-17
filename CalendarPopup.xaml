@@ -1,0 +1,72 @@
+<Window x:Class="TopBar.CalendarPopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Calendar"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="Manual"
+        WindowStyle="None" AllowsTransparency="True"
+        Background="Transparent" ResizeMode="NoResize"
+        ShowInTaskbar="False" Topmost="True"
+        Deactivated="Window_Deactivated"
+        MouseEnter="Window_MouseEnter"
+        MouseLeave="Window_MouseLeave">
+
+    <Window.Resources>
+        <!-- Dark calendar day button -->
+        <Style TargetType="CalendarDayButton">
+            <Setter Property="Foreground" Value="{DynamicResource PopupFgBright}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="MinWidth" Value="44"/>
+            <Setter Property="MinHeight" Value="44"/>
+            <Style.Triggers>
+                <Trigger Property="IsToday" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource PopupAccent}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource PopupFgBright}"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource PopupThumb}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource PopupInputBg}"/>
+                </Trigger>
+                <Trigger Property="IsBlackedOut" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource PopupFgDim}"/>
+                </Trigger>
+                <Trigger Property="IsInactive" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource PopupFgDim}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Dark calendar button (month/year nav) -->
+        <Style TargetType="CalendarButton">
+            <Setter Property="Foreground" Value="{DynamicResource PopupFgNormal}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="MinWidth" Value="60"/>
+            <Setter Property="MinHeight" Value="44"/>
+        </Style>
+
+        <!-- Calendar item (the month grid container) -->
+        <Style TargetType="CalendarItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <!-- Calendar root -->
+        <Style TargetType="Calendar">
+            <Setter Property="Foreground" Value="{DynamicResource PopupFgNormal}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Window.Resources>
+
+    <Border Background="#01000000" CornerRadius="{StaticResource PopupRadius}" Padding="{StaticResource ContentPad}">
+        <StackPanel>
+            <TextBlock x:Name="DateHeader" Style="{StaticResource PopupHeader}"
+                       Margin="2,0,0,10" />
+            <Calendar x:Name="Cal"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      Background="Transparent"
+                      BorderThickness="0" />
+        </StackPanel>
+    </Border>
+</Window>

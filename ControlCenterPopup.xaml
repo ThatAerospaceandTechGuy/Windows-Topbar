@@ -1,0 +1,227 @@
+<Window x:Class="TopBar.ControlCenterPopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Control Center"
+        Width="384" SizeToContent="Height" MaxHeight="640"
+        WindowStartupLocation="Manual"
+        WindowStyle="None" AllowsTransparency="True"
+        Background="Transparent" ResizeMode="NoResize"
+        ShowInTaskbar="False" Topmost="True"
+        Deactivated="Window_Deactivated"
+        MouseEnter="Window_MouseEnter"
+        MouseLeave="Window_MouseLeave">
+
+    <Border Background="#01000000" CornerRadius="{StaticResource PopupRadius}" Padding="{StaticResource ContentPad}">
+        <StackPanel>
+            <!-- Row 1: Wi-Fi / Bluetooth / Airplane mode -->
+            <Grid Margin="0,0,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" x:Name="TileWifi" CornerRadius="8" Padding="10,8" Cursor="Hand"
+                        Margin="0,0,8,0" Background="{DynamicResource PopupButtonBg}"
+                        MouseLeftButtonUp="WifiTile_Click" MinHeight="84">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="0,0,0,6">
+                            <Viewbox Width="18" Height="18" HorizontalAlignment="Left">
+                                <Canvas x:Name="WifiCanvas" Width="24" Height="24">
+                                    <Path Fill="{DynamicResource PopupFgNormal}"
+                                        Data="M12 3C7.8 3 3.9 4.6 1 7.4L3.2 9.6C5.5 7.4 8.6 6 12 6s6.5 1.4 8.8 3.6L23 7.4C20.1 4.6 16.2 3 12 3zM12 9c-2.7 0-5.2 1.1-7 2.9L7.2 14c1.3-1.2 3-2 4.8-2s3.5.8 4.8 2l2.2-2.1C17.2 10.1 14.7 9 12 9zm0 6c-1.4 0-2.6.5-3.5 1.5L12 20l3.5-3.5C14.6 15.5 13.4 15 12 15z"/>
+                                </Canvas>
+                            </Viewbox>
+                            <TextBlock Text="›" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Foreground="{DynamicResource PopupFgDim}" Cursor="Hand"
+                                       Padding="8,0,0,0" MouseLeftButtonUp="WifiChevron_Click" x:Name="WifiChevron"/>
+                        </Grid>
+                        <TextBlock Grid.Row="1" Text="Wi-Fi" FontSize="12" Foreground="{DynamicResource PopupFgBright}" x:Name="WifiTitle"/>
+                        <TextBlock Grid.Row="2" Text="…" FontSize="11" Foreground="{DynamicResource PopupFgLabel}" TextTrimming="CharacterEllipsis" x:Name="WifiSub"/>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" x:Name="TileBt" CornerRadius="8" Padding="10,8" Cursor="Hand"
+                        Margin="0,0,8,0" Background="{DynamicResource PopupButtonBg}"
+                        MouseLeftButtonUp="BtTile_Click" MinHeight="84">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="0,0,0,6">
+                            <Viewbox Width="18" Height="18" HorizontalAlignment="Left">
+                                <Canvas x:Name="BtCanvas" Width="24" Height="24">
+                                    <Path Fill="{DynamicResource PopupFgNormal}"
+                                        Data="M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88z"/>
+                                </Canvas>
+                            </Viewbox>
+                            <TextBlock Text="›" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Foreground="{DynamicResource PopupFgDim}" Cursor="Hand"
+                                       Padding="8,0,0,0" MouseLeftButtonUp="BtChevron_Click" x:Name="BtChevron"/>
+                        </Grid>
+                        <TextBlock Grid.Row="1" Text="Bluetooth" FontSize="12" Foreground="{DynamicResource PopupFgBright}" x:Name="BtTitle"/>
+                        <TextBlock Grid.Row="2" Text="…" FontSize="11" Foreground="{DynamicResource PopupFgLabel}" TextTrimming="CharacterEllipsis" x:Name="BtSub"/>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="2" x:Name="TileAir" CornerRadius="8" Padding="10,8" Cursor="Hand"
+                        Background="{DynamicResource PopupButtonBg}"
+                        MouseLeftButtonUp="AirTile_Click" MinHeight="84">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Viewbox Grid.Row="0" Width="18" Height="18" HorizontalAlignment="Left" Margin="0,0,0,6">
+                            <Canvas x:Name="AirCanvas" Width="24" Height="24">
+                                <Path Fill="{DynamicResource PopupFgNormal}"
+                                    Data="M21 16v-2l-8-5V3.5C13 2.67 12.33 2 11.5 2S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                            </Canvas>
+                        </Viewbox>
+                        <TextBlock Grid.Row="1" Text="Airplane mode" FontSize="12" Foreground="{DynamicResource PopupFgBright}" x:Name="AirTitle"/>
+                        <TextBlock Grid.Row="2" Text="Off" FontSize="11" Foreground="{DynamicResource PopupFgLabel}" x:Name="AirSub"/>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- Row 2: Do Not Disturb / Energy saver / Accessibility -->
+            <Grid Margin="0,0,0,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" x:Name="TileDnd" CornerRadius="8" Padding="10,8" Cursor="Hand"
+                        Margin="0,0,8,0" Background="{DynamicResource PopupButtonBg}"
+                        MouseLeftButtonUp="DndTile_Click" MinHeight="84">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Viewbox Grid.Row="0" Width="18" Height="18" HorizontalAlignment="Left" Margin="0,0,0,6">
+                            <Canvas x:Name="DndCanvas" Width="24" Height="24">
+                                <Path Fill="{DynamicResource PopupFgNormal}"
+                                    Data="M20 14.5A8.5 8.5 0 019.5 4 8.5 8.5 0 1020 14.5z"/>
+                            </Canvas>
+                        </Viewbox>
+                        <TextBlock Grid.Row="1" Text="Do not disturb" FontSize="12" Foreground="{DynamicResource PopupFgBright}"/>
+                        <TextBlock Grid.Row="2" Text="Off" FontSize="11" Foreground="{DynamicResource PopupFgLabel}" x:Name="DndSub"/>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" x:Name="TileEco" CornerRadius="8" Padding="10,8" Cursor="Hand"
+                        Margin="0,0,8,0" Background="{DynamicResource PopupButtonBg}"
+                        MouseLeftButtonUp="EcoTile_Click" MinHeight="84">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Viewbox Grid.Row="0" Width="18" Height="18" HorizontalAlignment="Left" Margin="0,0,0,6">
+                            <Canvas x:Name="EcoCanvas" Width="24" Height="24">
+                                <Path Fill="{DynamicResource PopupFgNormal}"
+                                    Data="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66l.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C14.96 14.78 12.34 18.47 11 21z"/>
+                            </Canvas>
+                        </Viewbox>
+                        <TextBlock Grid.Row="1" Text="Energy saver" FontSize="12" Foreground="{DynamicResource PopupFgBright}"/>
+                        <TextBlock Grid.Row="2" Text="…" FontSize="11" Foreground="{DynamicResource PopupFgLabel}" x:Name="EcoSub"/>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="2" x:Name="TileA11y" CornerRadius="8" Padding="10,8" Cursor="Hand"
+                        Background="{DynamicResource PopupButtonBg}"
+                        MouseLeftButtonUp="A11yTile_Click" MinHeight="84">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="0,0,0,6">
+                            <Viewbox Width="18" Height="18" HorizontalAlignment="Left">
+                                <Canvas x:Name="A11yCanvas" Width="24" Height="24">
+                                    <Ellipse Width="5" Height="5" Fill="{DynamicResource PopupFgNormal}" Canvas.Left="9.5" Canvas.Top="3.5"/>
+                                    <Path Fill="{DynamicResource PopupFgNormal}"
+                                        Data="M12 10.5c-2.6 0-7 1.3-7 3.7v2.3h14v-2.3c0-2.4-4.4-3.7-7-3.7zm-4 4.2l1.2-3.1 2.8 1.2 2.8-1.2 1.2 3.1h-8z"/>
+                                </Canvas>
+                            </Viewbox>
+                            <TextBlock Text="›" FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                       Foreground="{DynamicResource PopupFgDim}" x:Name="A11yChevron"/>
+                        </Grid>
+                        <TextBlock Grid.Row="1" Text="Accessibility" FontSize="12" Foreground="{DynamicResource PopupFgBright}"/>
+                        <TextBlock Grid.Row="2" Text="Settings" FontSize="11" Foreground="{DynamicResource PopupFgLabel}"/>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- Sliders -->
+            <Grid Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Viewbox Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,10,0">
+                    <Canvas x:Name="SunCanvas" Width="24" Height="24">
+                        <Ellipse Width="7" Height="7" Fill="{DynamicResource PopupFgNormal}" Canvas.Left="8.5" Canvas.Top="8.5"/>
+                        <Path Stroke="{DynamicResource PopupFgNormal}" StrokeThickness="1.8" StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                            Data="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/>
+                    </Canvas>
+                </Viewbox>
+                <Slider Grid.Column="1" x:Name="BrightnessSlider" Minimum="0" Maximum="100" VerticalAlignment="Center"
+                        IsMoveToPointEnabled="True" ValueChanged="BrightnessSlider_ValueChanged"/>
+            </Grid>
+
+            <Grid Margin="0,0,0,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Background="Transparent" Padding="4" Margin="0,0,6,0"
+                        VerticalAlignment="Center" Cursor="Hand" ToolTip="Mute / unmute"
+                        MouseLeftButtonUp="SpkButton_Click">
+                    <Viewbox Width="16" Height="16">
+                        <Canvas x:Name="SpkCanvas" Width="24" Height="24">
+                            <Path x:Name="SpkIcon" Fill="{DynamicResource PopupFgNormal}"
+                                Data="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0014 8.3v7.4a4.47 4.47 0 002.5-3.7zM14 3.2v2.1a7 7 0 010 13.4v2.1A9 9 0 0014 3.2z"/>
+                        </Canvas>
+                    </Viewbox>
+                </Border>
+                <Slider Grid.Column="1" x:Name="VolumeSlider" Minimum="0" Maximum="100" VerticalAlignment="Center"
+                        IsMoveToPointEnabled="True" ValueChanged="VolumeSlider_ValueChanged"/>
+                <TextBlock Grid.Column="2" Text="›" FontSize="16" VerticalAlignment="Center" Margin="10,0,0,0"
+                           Foreground="{DynamicResource PopupFgDim}" Cursor="Hand"
+                           MouseLeftButtonUp="SoundChevron_Click"/>
+            </Grid>
+
+            <!-- Footer: battery + settings -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="BattText" Text="—" FontSize="12" VerticalAlignment="Center"
+                           Foreground="{DynamicResource PopupFgBright}" Cursor="Hand"
+                           MouseLeftButtonUp="Battery_Click"/>
+                <Viewbox Grid.Column="1" Width="16" Height="16" Cursor="Hand" MouseLeftButtonUp="Gear_Click">
+                    <Canvas x:Name="GearCanvas" Width="24" Height="24">
+                        <Path Fill="{DynamicResource PopupFgDim}"
+                            Data="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+                    </Canvas>
+                </Viewbox>
+            </Grid>
+        </StackPanel>
+    </Border>
+</Window>
