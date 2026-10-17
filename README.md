@@ -51,4 +51,4 @@ Settings are saved to `topbar-config.json` next to the executable.
 
 This project is **source-available** under the [TopBar Source License](LICENSE) — you may view, compile, and modify the source for personal use, but **redistribution of the software or source code is not permitted**. See [LICENSE](LICENSE) for the full terms.
 
-Official pre-built binaries are available at https://iamboingus.itch.io/topbar.
+
