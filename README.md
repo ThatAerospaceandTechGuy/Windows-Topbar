@@ -19,7 +19,12 @@ A lightweight desktop utility that brings a macOS-style menu bar to Windows — 
 ## Requirements
 
 - Windows 10 build 17763 (1809) or newer, 64-bit
+- [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) to run the pre-built installer
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) to build from source
+
+## Download
+
+Pre-built installer available on the [Releases page](https://github.com/ThatAerospaceandTechGuy/Windows-Topbar/releases). The installer will notify you if the .NET 8 Desktop Runtime is missing.
 
 ## Building from source
 
